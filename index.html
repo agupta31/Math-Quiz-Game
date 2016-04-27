@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+  <title>Math game app</title>
+  
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body> 
+
+      
+      <div id="gameOver">
+         Game over! <br/>
+         Your score is:<span id="showScore"></span>
+         <p id="performanceMessage"></p>
+      </div>
+	  <div id="container">
+          
+          <div class="mainDiv">
+              <div id="displayNum">
+                 
+              </div>
+               
+                    <div id="scoreText">
+                         <span >Score:<span id="score"></span></span>
+
+                     </div>
+
+             </div>  
+             <div id="answerText">
+               <p>Choose the correct answer: <span class="message"></span> </p>
+   
+             </div>  
+
+          <div class='results'>
+             
+             <ul>
+                 <li>ans1</li>
+                 <li>ans2</li>
+                 <li>ans3</li>
+                 <li>ans4</li>
+             </ul>
+          </div>
+          
+          <br/>
+          <div class="buttonDiv">
+          <button id="reset" class="btn btn-primary">Reset Game</button> 
+          <span class="timeRemaining">Time remaining:<span id="time"></span></span>  
+
+        </div>
+	  </div>
+
+  <script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
