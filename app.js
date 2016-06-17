@@ -1,171 +1,115 @@
 
 
-var multiplyTable=document.getElementById("displayNum"),
-     reset=document.querySelector("#reset"),
-     result=document.getElementsByTagName("li"),
-     message= document.querySelector(".message"),
-     time=document.getElementById("time"),
-     showScore=document.getElementById("showScore"),
-     gameOver=document.getElementById("gameOver"),
-     timeRemaining=document.querySelector(".timeRemaining"),
-     performanceMessage=document.getElementById("performanceMessage");
-     var number1,number2,answer,index,t,randomNumber,k;
-     var count=60; var scoreCount=0;
-     var problem=[
-               multiplication,
-               addition,
-               subtraction,
-               division
-      ];
+var playing = false; 
+var score; 
 
-function randomNumberGenerator(){
-     
-       number1=Math.floor(1+Math.random()*10);
-       number2=Math.floor(1+Math.random()*10);
+var action; 
+var timeremaining; 
+var correctAnswer; 
 
-    }
+document.getElementById("startreset").onclick = function(){     
+           if(playing == true){                 
 
-  
-  reset.addEventListener("click",function(){
-        problem[Math.floor(Math.random()*problem.length)]();
-         count=60;
-       gameOver.style.display="none";
-       timeRemaining.style.display="inline";
-        time.style.color="white";
-        score.innerHTML="";
-        message.textContent="";
-        clearTimeout(t);
-         scoreCount=0;
-        timedCount();
+            location.reload(); //reload page              
 
-    
-  });
+          }else{
 
-function checkAnswer(){
- 
-	for(var i=0;i<result.length;i++){
-	  result[i].addEventListener("click",function(){
-	     var selection=parseInt(this.innerHTML);
-		     if(selection===answer){
-		     	document.getElementById("score").innerHTML=++scoreCount;
-                 
-		             message.textContent ="correct";
-		     	      problem[Math.floor(Math.random()*problem.length)]();
-                    
-		        }
-		     else{
-		     	message.textContent="try again";
-	        
-	         }
-	  });
+             playing = true; 
 
+             score = 0;        
+            document.getElementById("scorevalue").innerHTML = score; 
 
-}
+             show("timeremaining");         
+             timeremaining = 60;         
+             document.getElementById("timeremainingvalue").innerHTML = timeremaining;
 
-}
-function timedCount(){
-     if(count<0){
-      stopCount();
-   
-    }
-    if(count<10)
-       time.style.color="red";
-   
-   time.innerHTML=count--;
+              hide("gameOver"); 
 
-  t=setTimeout(function(){timedCount()},1000);
+              document.getElementById("startreset").innerHTML = "Reset Game";  
+               startCountdown();
 
-}
+                generateQA();     
+              }  
+          }
 
-function stopCount(){
-   
-        clearTimeout(t);
-        checkPerformance();
-        showScore.innerHTML=scoreCount;
-        timeRemaining.style.display="none";
-        gameOver.style.display="block";
-        
+   for(i=1; i<5; i++){     
+   document.getElementById("box"+i).onclick = function(){  
 
-         
-}
+    if(playing == true){         
+      if(this.innerHTML == correctAnswer){  
+       score++; 
 
-function checkPerformance(){
-  if(scoreCount>20)
-    performanceMessage.innerHTML="Great Job Amigo!";
-  else if(scoreCount>10 && scoreCount<=20)
-     performanceMessage.innerHTML="Not bad.You can improve though!";
-   else
-    performanceMessage.innerHTML="You need to work really hard!!!";
+       document.getElementById("scorevalue").innerHTML = score;                        
+       hide("wrong");             
+       show("correct");             
+       setTimeout(function(){                 
+        hide("correct");                
+      }, 1000);    
+
+       generateQA();         
+     }else{                     
+        hide("correct");             
+        show("wrong");             
+        setTimeout(function(){                 
+          hide("wrong");                
+        }, 1000);         
+      }
+
+    } 
+    }    
+  } 
+
+  function startCountdown(){     
+    action = setInterval(function(){         
+      timeremaining -= 1; 
+    document.getElementById("timeremainingvalue").innerHTML = timeremaining;         
+    if(timeremaining == 0){           
+    stopCountdown();             
+    show("gameOver");  
 
 
-}
+  document.getElementById("gameOver").innerHTML = "<p>Game over!</p><p>Your score is " + score + ".</p>";                
+  hide("timeremaining");             
+  hide("correct");             
+  hide("wrong");             
+  playing = false;  
 
-function multiplication(){
+document.getElementById("startreset").innerHTML = "Start Game";         
+}     
+}, 1000);     
+  }     
 
-       randomNumberGenerator();
-       answer=number1 *number2;
-       multiplyTable.innerHTML=number1 +" x "+ number2;
-       index=Math.floor(Math.random()*result.length)
-       result[index].innerHTML=answer;
-       populateAnswers(1);
-      
+  function stopCountdown(){     
+    clearInterval(action);    
+  }   
 
-}
+  function hide(Id){     
+    document.getElementById(Id).style.display = "none";    
+  } 
 
-function addition(){
+  function show(Id){     
+    document.getElementById(Id).style.display = "block";   
+     }  
 
-      randomNumberGenerator();
-      answer=number1+number2;
-      multiplyTable.innerHTML=number1 +" + "+number2;
-      index=Math.floor(Math.random()*result.length);
-      result[index].innerHTML=answer;
-      populateAnswers(2);
-}
+   function generateQA(){     
+   var x = 1+ Math.round(9*Math.random());     
+   var y = 1+ Math.round(9*Math.random());     
+   correctAnswer = x*y;     
+   document.getElementById("question").innerHTML = x + "x" + y;     
+   var correctPosition = 1+ Math.round(3*Math.random());   
 
-function subtraction(){
+   document.getElementById("box"+correctPosition).innerHTML = correctAnswer;  
 
-      randomNumberGenerator();
-      answer=number1>number2? number1-number2 : number2-number1;
-      if(number1>number2)
-         multiplyTable.innerHTML=number1 +" -"+number2;
-       else
-          multiplyTable.innerHTML=number2 +"-"+number1;
-      index=Math.floor(Math.random()*result.length);
-      result[index].innerHTML=answer;
-      populateAnswers(3);
-}
+    var answers = [correctAnswer];          
+    for(i=1; i<5; i++){         
+      if(i != correctPosition) {            
+       var wrongAnswer;    
 
-function division(){
-       randomNumberGenerator();
-       answer=number1>number2?number1%number2:number2%number1;
-        if(number1>number2)
-         multiplyTable.innerHTML=number1 +" %"+number2;
-       else
-          multiplyTable.innerHTML=number2 +"%"+number1;
-
-        index=Math.floor(Math.random()*result.length);
-        result[index].innerHTML=answer;
-        populateAnswers(4);
-
-
-
-}
-function populateAnswers(selection){
-      var sum=0;
-      
-        for(var i=0;i<result.length;i++){
-               if(index!==i){
-                    var k=Math.floor(5+Math.random()*2);
-                   result[i].innerHTML=Math.abs(k);
-                
-                 }
-        }
-
-}
-
-
-randomNumberGenerator();
-multiplication();
-checkAnswer();
-timedCount();
-
+     do{                
+      wrongAnswer = (1+ Math.round(9*Math.random()))*(1+ Math.round(9*Math.random()));             
+    }while(answers.indexOf(wrongAnswer)>-1)
+     document.getElementById("box"+i).innerHTML = wrongAnswer;             
+     answers.push(wrongAnswer);         
+   }     
+ } 
+}                             

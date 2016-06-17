@@ -1,59 +1,38 @@
-<!doctype html>
 
-<html>
+<!DOCTYPE html> <html lang="en">     
+<head>         
+	<title>Maths Game</title>        
+	 <meta charset="utf-8">        
+	  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">         
+	  <link rel="stylesheet" href="style.css">    
 
-<head>
+	   </head>   
 
-  <title>Math game app</title>
-  
-  <link rel="stylesheet" href="app.css">
-</head>
+	 <body>         
+	 <div id="container">   
+	           <div id="score"> Score: <span id="scorevalue">0</span>             </div>   
+	           <div id="correct"> Correct  </div>     
+	                <div id="wrong"> Try again </div> 
+	                 <div id="question"> </div>             
+	                 <div id="instruction"> 
+	                   Click on the correct answer
+	                   </div>
 
-<body> 
+       <div id="choices">                
 
-      
-      <div id="gameOver">
-         Game over! <br/>
-         Your score is:<span id="showScore"></span>
-         <p id="performanceMessage"></p>
-      </div>
-	  <div id="container">
-          
-          <div class="mainDiv">
-              <div id="displayNum">
-                 
-              </div>
-               
-                    <div id="scoreText">
-                         <span >Score:<span id="score"></span></span>
+        <div id="box1" class="box"></div> 
+        <div id="box2" class="box"></div>  
+        <div id="box3" class="box"></div> 
+        <div id="box4" class="box"></div>            
 
-                     </div>
+         </div>   
 
-             </div>  
-             <div id="answerText">
-               <p>Choose the correct answer: <span class="message"></span> </p>
-   
-             </div>  
 
-          <div class='results'>
-             
-             <ul>
-                 <li>ans1</li>
-                 <li>ans2</li>
-                 <li>ans3</li>
-                 <li>ans4</li>
-             </ul>
-          </div>
-          
-          <br/>
-          <div class="buttonDiv">
-          <button id="reset" class="btn btn-primary">Reset Game</button> 
-          <span class="timeRemaining">Time remaining:<span id="time"></span></span>  
+          <div id="startreset">  Start Game</div> 
+        <div id="timeremaining"> Time remaining: <span id="timeremainingvalue">60</span> sec  </div> 
+        <div id="gameOver"> </div>         
+         </div>         
+         <script src="app.js"></script>     
+         </body> 
+         </html>   
 
-        </div>
-	  </div>
-
-  <script type="text/javascript" src="app.js"></script>
-</body>
-
-</html>
